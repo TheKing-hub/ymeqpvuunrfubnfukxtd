@@ -3,6 +3,7 @@ package com.example.ymeqpvuunrfubnfukxtd.service.implementation.model_service_im
 import com.example.ymeqpvuunrfubnfukxtd.exception.ObjectCannotBeAddedException;
 import com.example.ymeqpvuunrfubnfukxtd.model.entity.CallOne;
 import com.example.ymeqpvuunrfubnfukxtd.model.service_dto.CallOneDTO;
+import com.example.ymeqpvuunrfubnfukxtd.model.service_dto.Filter;
 import com.example.ymeqpvuunrfubnfukxtd.repository.CallOneRepository;
 import com.example.ymeqpvuunrfubnfukxtd.service.model_service.CallOneService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -111,5 +113,15 @@ public class CallOneServiceImpl implements CallOneService {
 
     public List<CallOneDTO> getAllCallObjects() {
         return callOneRepository.findAll().stream().map(this::callOneToCallOneDTO).collect(Collectors.toList());
+    }
+
+    public List<CallOneDTO> getFilteredCallOnes(Filter filter) {
+        List<CallOneDTO> callOneDTOS = getAllCallObjects();
+        int startIndex = filter.getLimit() * filter.getOffset();
+        List<CallOneDTO> filteredCallOnes = new ArrayList<>();
+        for (int i = startIndex; i < startIndex + filter.getLimit(); ++i) {
+            filteredCallOnes.add(callOneDTOS.get(i));
+        }
+        return filteredCallOnes;
     }
 }

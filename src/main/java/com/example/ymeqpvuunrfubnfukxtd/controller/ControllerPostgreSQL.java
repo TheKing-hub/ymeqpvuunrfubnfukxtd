@@ -2,6 +2,7 @@ package com.example.ymeqpvuunrfubnfukxtd.controller;
 
 import com.example.ymeqpvuunrfubnfukxtd.model.entity.CallOne;
 import com.example.ymeqpvuunrfubnfukxtd.model.service_dto.CallOneDTO;
+import com.example.ymeqpvuunrfubnfukxtd.model.service_dto.Filter;
 import com.example.ymeqpvuunrfubnfukxtd.service.implementation.model_service_impl.CallOneServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +42,10 @@ public class ControllerPostgreSQL {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCallObjectById(@PathVariable Long id) {
         return ResponseEntity.ok(callOneService.deleteCallOneObject(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<List<CallOneDTO>> getCallObjects(@RequestBody Filter filter) {
+        return ResponseEntity.ok(callOneService.getFilteredCallOnes(filter));
     }
 }
