@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("call_one/object")
+@RequestMapping("call_one")
 @RequiredArgsConstructor
 public class ControllerPostgreSQL {
     private final CallOneServiceImpl callOneService;
@@ -22,7 +22,7 @@ public class ControllerPostgreSQL {
         return ResponseEntity.ok("Call Object was successfully added!");
     }
 
-    @GetMapping("{id}")
+    @GetMapping("get/{id}")
     public ResponseEntity<CallOne> getCallOne(@PathVariable Long id) {
         return ResponseEntity.ok(callOneService.getCallObjectById(id));
     }
@@ -32,7 +32,13 @@ public class ControllerPostgreSQL {
         return ResponseEntity.ok(callOneService.getAllCallObjects());
     }
 
-    @DeleteMapping("{id}")
+    @PutMapping("update/{id}")
+    public ResponseEntity<String> updateCallObjectById(@PathVariable Long id, @RequestBody CallOneDTO callOneDTO) {
+        return ResponseEntity.ok(callOneService.updateCallObjectById(id, callOneDTO));
+    }
+
+
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCallObjectById(@PathVariable Long id) {
         return ResponseEntity.ok(callOneService.deleteCallOneObject(id));
     }

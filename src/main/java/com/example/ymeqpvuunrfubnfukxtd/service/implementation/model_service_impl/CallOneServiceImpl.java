@@ -95,6 +95,20 @@ public class CallOneServiceImpl implements CallOneService {
         return "Object with " + id + " was successfully deleted";
     }
 
+    public String updateCallObjectById(Long id, CallOneDTO callOneDTO) {
+        if (callOneRepository.findById(id).isEmpty()) {
+            return "Id " + id + " does not exist";
+        }
+        CallOne callOne = callOneRepository.findById(id).get();
+        callOne.setName(callOneDTO.getName());
+        callOne.setYear(callOneDTO.getYear());
+        callOne.setPhoneOne(callOneDTO.getPhoneOne());
+        callOne.setPhoneTwo(callOneDTO.getPhoneTwo());
+        callOne.setCreationDate(callOneDTO.getCreationDate());
+        callOneRepository.save(callOne);
+        return "Call object with " + id + " was successfully updated";
+    }
+
     public List<CallOneDTO> getAllCallObjects() {
         return callOneRepository.findAll().stream().map(this::callOneToCallOneDTO).collect(Collectors.toList());
     }
