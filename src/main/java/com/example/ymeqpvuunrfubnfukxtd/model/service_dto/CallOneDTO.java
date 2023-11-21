@@ -14,5 +14,5 @@ public class CallOneDTO {
     private Integer year;
     private String phoneOne;
     private String phoneTwo;
-    private Date creation;
+    private String creationDate;
 }

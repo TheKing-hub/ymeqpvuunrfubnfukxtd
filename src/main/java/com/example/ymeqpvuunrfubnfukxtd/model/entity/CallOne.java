@@ -1,5 +1,6 @@
 package com.example.ymeqpvuunrfubnfukxtd.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,5 +23,5 @@ public class CallOne extends BaseEntity {
     private Integer year;
     private String phoneOne;
     private String phoneTwo;
-    private Date creation;
+    private String creationDate;
 }

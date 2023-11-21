@@ -1,5 +1,6 @@
 package com.example.ymeqpvuunrfubnfukxtd.service.implementation.model_service_impl;
 
+import com.example.ymeqpvuunrfubnfukxtd.exception.ObjectCannotBeAddedException;
 import com.example.ymeqpvuunrfubnfukxtd.model.entity.CallOne;
 import com.example.ymeqpvuunrfubnfukxtd.model.service_dto.CallOneDTO;
 import com.example.ymeqpvuunrfubnfukxtd.repository.CallOneRepository;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +24,7 @@ public class CallOneServiceImpl implements CallOneService {
         callOne.setYear(callOneDTO.getYear());
         callOne.setPhoneOne(callOneDTO.getPhoneOne());
         callOne.setPhoneTwo(callOneDTO.getPhoneTwo());
-        callOne.setCreation(callOneDTO.getCreation());
+        callOne.setCreationDate(callOneDTO.getCreationDate());
         return callOne;
     }
 
@@ -31,7 +34,7 @@ public class CallOneServiceImpl implements CallOneService {
         callOneDTO.setYear(callOne.getYear());
         callOneDTO.setPhoneOne(callOne.getPhoneOne());
         callOneDTO.setPhoneTwo(callOne.getPhoneTwo());
-        callOneDTO.setCreation(callOne.getCreation());
+        callOneDTO.setCreationDate(callOne.getCreationDate());
         return callOneDTO;
     }
 
@@ -52,7 +55,7 @@ public class CallOneServiceImpl implements CallOneService {
 
     // Day/Month/Year from 01.01.1900 to now
     public Boolean checkDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
             LocalDate parsedDate = LocalDate.parse(date, formatter);
@@ -66,17 +69,33 @@ public class CallOneServiceImpl implements CallOneService {
     }
 
     public void addPhoneObject(CallOne callOne) {
-        callOneRepository.save(callOne);
-    }
+        Boolean successfulData = checkPhoneNumber(callOne.getPhoneOne()) &&
+                checkPhoneNumber(callOne.getPhoneTwo()) &&
+                checkName(callOne.getName()) &&
+                checkYear(callOne.getYear()) &&
+                checkDate(callOne.getCreationDate());
 
-    public String getCallObjectById(Long id) {
-        if (callOneRepository.findById(id).isEmpty()) {
-            return "Such id does not exist";
+        if (successfulData) {
+            callOneRepository.save(callOne);
         }
-        return callOneRepository.getReferenceById(id).getPhoneOne();
+        else {
+            throw new ObjectCannotBeAddedException("Some input data is wrong");
+        }
     }
 
-    public String deletePhoneNumber() {
-        return "";
+    public CallOne getCallObjectById(Long id) {
+        return callOneRepository.findById(id).orElse(null);
+    }
+
+    public String deleteCallOneObject(Long id) {
+        if (callOneRepository.findById(id).isEmpty()) {
+            return "Id " + id + " does not exist";
+        }
+        callOneRepository.deleteById(id);
+        return "Object with " + id + " was successfully deleted";
+    }
+
+    public List<CallOneDTO> getAllCallObjects() {
+        return callOneRepository.findAll().stream().map(this::callOneToCallOneDTO).collect(Collectors.toList());
     }
 }
