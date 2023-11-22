@@ -3,7 +3,9 @@ package com.example.ymeqpvuunrfubnfukxtd.service.implementation.model_service_im
 import com.example.ymeqpvuunrfubnfukxtd.exception.ObjectCannotBeAddedException;
 import com.example.ymeqpvuunrfubnfukxtd.model.entity.CallOne;
 import com.example.ymeqpvuunrfubnfukxtd.model.entity.CallOneMongo;
+import com.example.ymeqpvuunrfubnfukxtd.model.service_dto.CallOneDTO;
 import com.example.ymeqpvuunrfubnfukxtd.model.service_dto.CallOneMongoDTO;
+import com.example.ymeqpvuunrfubnfukxtd.model.service_dto.Filter;
 import com.example.ymeqpvuunrfubnfukxtd.repository.CallOneMongoRepository;
 import com.example.ymeqpvuunrfubnfukxtd.repository.CallOneRepository;
 import com.example.ymeqpvuunrfubnfukxtd.service.model_service.CallOneMongoService;
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -89,5 +94,44 @@ public class CallOneMongoServiceImpl implements CallOneMongoService {
             return callOneMongo;
         }
         throw new IllegalStateException("Incorrect phone number, " + phoneOne + " does not exist");
+    }
+
+    public String deleteCallOneMongoObjectByPhoneOne(String phoneOne) {
+        CallOneMongo callOneMongo = callOneMongoRepository.getCallOneMongoByPhoneOne(phoneOne);
+        if (callOneMongo != null) {
+            callOneMongoRepository.delete(callOneMongo);
+            return "Call Object with phone number " + phoneOne + " was successfully deleted!";
+        }
+        throw new IllegalStateException("There is no object with " + phoneOne + " phone number");
+    }
+
+    public String updateCallObjectMongoByPhoneNumber(String phoneOne, CallOneMongoDTO callOneMongoDTO) {
+        CallOneMongo callOneMongo = callOneMongoRepository.getCallOneMongoByPhoneOne(phoneOne);
+        if (callOneMongo == null) {
+            return "Call Object with phone " + phoneOne + " does not exist";
+        }
+        callOneMongo.setName(callOneMongoDTO.getName());
+        callOneMongo.setYear(callOneMongoDTO.getYear());
+        callOneMongo.setPhoneOne(callOneMongoDTO.getPhoneOne());
+        callOneMongo.setPhoneTwo(callOneMongoDTO.getPhoneTwo());
+        callOneMongo.setCreationDate(callOneMongoDTO.getCreationDate());
+        callOneMongoRepository.save(callOneMongo);
+        return "Call Object with " + phoneOne + " was successfully updated!";
+    }
+
+    public List<CallOneMongoDTO> getAllCallMongoObjects() {
+        return callOneMongoRepository.findAll().stream()
+                .map(this::callOneMongoToCallOneMongoDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<CallOneMongoDTO> getFilteredCallOnesMongo(Filter filter) {
+        List<CallOneMongoDTO> callOneDTOS = getAllCallMongoObjects();
+        int startIndex = filter.getLimit() * filter.getOffset();
+        List<CallOneMongoDTO> filteredCallMongoOnes = new ArrayList<>();
+        for (int i = startIndex; i < startIndex + filter.getLimit(); ++i) {
+            filteredCallMongoOnes.add(callOneDTOS.get(i));
+        }
+        return filteredCallMongoOnes;
     }
 }
