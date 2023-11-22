@@ -71,7 +71,7 @@ public class CallOneServiceImpl implements CallOneService {
     }
 
     public void addPhoneObject(CallOne callOne) {
-        Boolean successfulData = checkPhoneNumber(callOne.getPhoneOne()) &&
+        boolean successfulData = checkPhoneNumber(callOne.getPhoneOne()) &&
                 checkPhoneNumber(callOne.getPhoneTwo()) &&
                 checkName(callOne.getName()) &&
                 checkYear(callOne.getYear()) &&

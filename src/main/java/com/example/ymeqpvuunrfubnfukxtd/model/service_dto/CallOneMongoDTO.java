@@ -1,0 +1,16 @@
+package com.example.ymeqpvuunrfubnfukxtd.model.service_dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CallOneMongoDTO {
+    private String name;
+    private Integer year;
+    private String phoneOne;
+    private String phoneTwo;
+    private String creationDate;
+}
