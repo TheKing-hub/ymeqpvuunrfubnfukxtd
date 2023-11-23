@@ -32,6 +32,7 @@
 Тут 2 контроллера, 
 ControllerPostgreSQL привязан к PostgreSQL, 
 ControllerMongoDB к MongoDB.
+
 a) В первом контроллере ControllerPostgreSQL:
 Через адрес http://localhost:8080/call_one мы подключаемся к данному контроллеру. В нем описаны следующие методы:
 
