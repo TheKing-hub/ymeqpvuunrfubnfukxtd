@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "9ced0114-b1f7-4ef5-b072-86a5561d2f1d",
+		"name": "Mongo collection requests (not working requests)",
+		"description": "Test MongoDB using requests in this file (requests will be failed)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28839514"
+	},
+	"item": [
+		{
+			"name": "Add objects",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Aizhan1\",\r\n    \"year\" : 19910,\r\n    \"phoneOne\" : \"+77071063119ab\",\r\n    \"phoneTwo\" : \"87083244471cd\",\r\n    \"creationDate\" : \"11-09-202045\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/call_one/mongo/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one",
+						"mongo",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete objects using first phone number",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/call_one/mongo/delete/+777717211234",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one",
+						"mongo",
+						"delete",
+						"+777717211234"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get object using first phone number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/call_one/mongo/get/+777717211234",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one",
+						"mongo",
+						"get",
+						"+777717211234"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting objects using Filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"limit\" : 300,\r\n    \"offset\" : 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/call_one/mongo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one",
+						"mongo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update object by first phone number",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Bekzat1\",\r\n    \"year\" : 19990,\r\n    \"phoneOne\" : \"+777717212675656566\",\r\n    \"phoneTwo\" : \"87013224331tg\",\r\n    \"creationDate\" : \"04-09-2040\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/call_one/mongo/update/+777717211234",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one",
+						"mongo",
+						"update",
+						"+777717211234"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

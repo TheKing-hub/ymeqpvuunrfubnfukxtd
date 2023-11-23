@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "afc18b4f-5f41-4b62-9f6a-7cd1411a42ec",
+		"name": "PostgreSQL collection requests (not working requests)",
+		"description": "Test PostgreSQL DB using requests in this file (requests will be failed)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28839514"
+	},
+	"item": [
+		{
+			"name": "Add objects",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Aizhan45\",\r\n    \"year\" : 199145,\r\n    \"phoneOne\" : \"+770710631194545\",\r\n    \"phoneTwo\" : \"8708324447145\",\r\n    \"creationDate\" : \"11-09-2045\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/call_one/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete object by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/call_one/delete/444",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one",
+						"delete",
+						"444"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get object using id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/call_one/get/444",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one",
+						"get",
+						"444"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get objects using Filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"limit\" : 300,\r\n    \"offset\" : 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/call_one",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update object by id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Bekzat13\",\r\n    \"year\": 199914,\r\n    \"phoneOne\": \"+7777172126754\",\r\n    \"phoneTwo\": \"8701322433165\",\r\n    \"creationDate\": \"04-09-2065\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/call_one/update/444",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"call_one",
+						"update",
+						"444"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
