@@ -13,7 +13,7 @@ class YmeqpvuunrfubnfukxtdApplicationTests {
 	void contextLoads() {
 	}
 
-	// Test for a phone number
+	// Тестирование номера телефона
 	@Test
 	public void testPhoneNumber() {
 		CallOneService callOneService = new CallOneServiceImpl(null);
@@ -30,6 +30,7 @@ class YmeqpvuunrfubnfukxtdApplicationTests {
 	}
 
 
+	// Тестирование имени
 	@Test
 	public void testName() {
 		CallOneService callOneService = new CallOneServiceImpl(null);
@@ -45,6 +46,7 @@ class YmeqpvuunrfubnfukxtdApplicationTests {
 		Assert.assertEquals(success1, true, "Name is written correctly!");
 	}
 
+	//Тестирование даты
 	@Test
 	public void testDate() {
 		CallOneService callOneService = new CallOneServiceImpl(null);
